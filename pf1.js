@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, './')));
+app.use(express.static(path.join(__dirname, './uploads')));
 
 // MongoDB connection URI from environment variable
 const mongoUri = process.env.MONGO_URI || "mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/"; // Local fallback for testing
@@ -51,7 +51,7 @@ app.post('/contacts', async (req, res) => {
 });
 
 // Route to get all contacts
-app.get('/contacts', async (req, res) => {
+app.get('/contact', async (req, res) => {
     try {
         const contacts = await Contact.find();
         res.json(contacts);
