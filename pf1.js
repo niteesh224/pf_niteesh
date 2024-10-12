@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // MongoDB connection URI from environment variable
-const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/mydb'; // Local fallback
+const mongoUri = process.env.MONGO_URI || 'mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/'; // Local fallback
 
 // Connect to MongoDB
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
