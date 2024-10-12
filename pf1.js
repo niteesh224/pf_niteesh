@@ -10,10 +10,10 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '/')));
 
 // MongoDB connection URI from environment variable
-const mongoUri = process.env.MONGO_URI || 'mongodb://localhost:27017/mydb'; // Local fallback for testing
+const mongoUri = process.env.MONGO_URI || "mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/"; // Local fallback for testing
 
 // Connect to MongoDB
 mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -31,7 +31,7 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 // Serve pf1.html at the root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'pf1.html'));
+    res.sendFile(path.join(__dirname, '/', 'pf1.html'));
 });
 
 // Route to handle POST requests to /contacts
