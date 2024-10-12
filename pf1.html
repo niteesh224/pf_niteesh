@@ -1,46 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us</title>
-    <script>
-        async function submitForm(event) {
-            event.preventDefault(); // Prevent the default form submission
-
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const message = document.getElementById('message').value;
-
-            try {
-                const response = await fetch('/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ name, email, message }),
-                });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-
-                const result = await response.text();
-                alert(result); // Notify user of success
-            } catch (error) {
-                console.error('Error:', error);
-                alert('An error occurred. Please try again later.');
-            }
-        }
-    </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niteesh Kumar's Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 18px;
+      margin-bottom: 0;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #0056b3;
+      padding: 15px;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+    nav a:hover {
+      color: #ffc107;
+    }
+    section {
+      padding: 60px 20px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 28px;
+      color: #333;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .about, .skills, .projects, .contact {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .about p {
+      max-width: 800px;
+      text-align: center;
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+    .skills-list, .project-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
+    }
+    .skills-list li, .project-list li {
+      background-color: #007bff;
+      color: #fff;
+      margin: 10px;
+      padding: 15px 25px;
+      border-radius: 5px;
+      font-size: 16px;
+      text-align: center;
+    }
+    .skills-list li:hover, .project-list li:hover {
+      background-color: #0056b3;
+    }
+    .contact-form {
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 100%;
+    }
+    .contact-form button {
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .contact-form button:hover {
+      background-color: #0056b3;
+    }
+    footer {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
 </head>
 <body>
-    <h1>Contact Us</h1>
-    <form onsubmit="submitForm(event)">
-        <input type="text" id="name" placeholder="Your Name" required />
-        <input type="email" id="email" placeholder="Your Email" required />
-        <textarea id="message" placeholder="Your Message" required></textarea>
-        <button type="submit">Send</button>
-    </form>
+  <!-- Header Section -->
+  <header>
+    <img src="./uploads/nk1234.jpeg" alt="Niteesh Kumar Profile Photo" style="width:200px; height:auto;border-radius: 50%;">
+    <h1>Niteesh Kumar</h1>
+    <p>Biochemistry | Molecular Biology | Biodiversity | Full Stack development | Lifelong Learner</p>
+  </header>
+
+  <!-- Navigation Bar -->
+  <nav>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  
+
+  <!-- About Section -->
+  <section id="about" class="about">
+    <div class="container">
+      <h2>About Me</h2>
+      <p>
+        Hi, I'm Niteesh Kumar, a passionate Full Stack Developer and BioChemistry enthusiast. 
+        With a solid background in software development and a deep interest in bioscience, I specialize in building web applications and applying data science in bioinformatics projects. I love learning new technologies and leveraging my skills to solve real-world problems.
+      </p>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section id="skills" class="skills">
+    <div class="container">
+      <h2>Skills</h2>
+      <ul class="skills-list">
+        <li>Biochemistry</li>
+        <li>HTML5 & CSS3</li>
+        <li>JavaScript (ES6+)</li>
+        <li>Molecular Biology</li>
+        <li>Node.js & Express.js</li>
+        <li>React.js</li>
+        <li>MongoDB</li>
+        <li>Biophysical Chemistry</li>
+        <li>SQL & NoSQL Databases</li>
+        <li>Python</li>
+        <li>Bioinformatics Tools</li>
+        <li>Git & GitHub</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects">
+    <div class="container">
+      <h2>Projects</h2>
+      <ul class="project-list">
+        <li>Portfolio Website: Built with HTML, CSS, and JavaScript.</li>
+        <li>Flask Bioinformatics App: Integrated biological data processing.</li>
+        <li>E-commerce Platform: Full stack application with React and Node.js.</li>
+        <li>Data Analysis in Bioinformatics: Python-based data visualization.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="contact">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <form class="contact-form" id="contactForm">
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+        <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+      <div id="responseMessage" class="message"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Niteesh Kumar. All rights reserved.</p>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+  
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const responseMessage = document.getElementById('responseMessage');
+      responseMessage.textContent = '';  // Reset any previous messages
+  
+      try {
+        // Submit the form via a POST request to the backend
+        const response = await fetch('http://localhost:8080/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, message }),
+        });
+  
+        // Handle different responses
+        if (response.ok) {
+          const successText = await response.text();
+          responseMessage.textContent = successText || 'Message sent successfully!';
+          responseMessage.classList.add('success');
+          responseMessage.classList.remove('error');
+        } else {
+          const errorText = await response.text();
+          responseMessage.textContent = errorText || 'Submission failed. Please try again.';
+          responseMessage.classList.add('error');
+          responseMessage.classList.remove('success');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        responseMessage.textContent = 'An error occurred. Please try again later.';
+        responseMessage.classList.add('error');
+        responseMessage.classList.remove('success');
+      }
+    });
+  </script>
+  
 </body>
 </html>
