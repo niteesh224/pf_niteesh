@@ -31,7 +31,7 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 // Serve pf1.html at the root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'main', 'pf1.html'));
+    res.sendFile(path.join(__dirname, './', 'pf1.html'));
 });
 
 // Route to handle POST requests to /contacts

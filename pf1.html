@@ -210,9 +210,9 @@
     document.getElementById('contactForm').addEventListener('submit', async function(event) {
       event.preventDefault();
   
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
+      const name = document.getElementById('name').value();
+      const email = document.getElementById('email').value();
+      const message = document.getElementById('message').value();
       const responseMessage = document.getElementById('responseMessage');
       responseMessage.textContent = '';  // Reset any previous messages
   

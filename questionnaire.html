@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Questionnaire</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 600px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input, select, textarea {
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 16px;
+      width: 100%;
+    }
+    input[type="radio"] {
+      width: auto;
+    }
+    .radio-group {
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 12px;
+      background-color: #007bff;
+      color: #fff;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+    .success {
+      color: #28a745;
+    }
+    .error {
+      color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Quick Questionnaire</h1>
+    <form id="questionnaireForm">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+
+      <label for="email">Email Address:</label>
+      <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+      <label for="age">Age Group:</label>
+      <select id="age" name="age" required>
+        <option value="" disabled selected>Select your age group</option>
+        <option value="18-24">18-24</option>
+        <option value="25-34">25-34</option>
+        <option value="35-44">35-44</option>
+        <option value="45+">45+</option>
+      </select>
+
+      <label for="experience">How experienced are you in this field?</label>
+      <div class="radio-group">
+        <label><input type="radio" name="experience" value="Beginner" required> Beginner</label>
+        <label><input type="radio" name="experience" value="Intermediate"> Intermediate</label>
+        <label><input type="radio" name="experience" value="Expert"> Expert</label>
+      </div>
+
+      <label for="comments">Additional Comments:</label>
+      <textarea id="comments" name="comments" placeholder="Enter any additional comments" rows="4"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    document.getElementById('questionnaireForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const age = document.getElementById('age').value;
+      const experience = document.querySelector('input[name="experience"]:checked').value;
+      const comments = document.getElementById('comments').value.trim();
+      const messageElement = document.getElementById('message');
+      messageElement.textContent = '';
+
+      try {
+        const response = await fetch('http://localhost:5000/questionnaire', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email, age, experience, comments }),
+        });
+
+        if (response.ok) {
+          const successMessage = await response.text();
+          messageElement.textContent = successMessage || 'Thank you for submitting the questionnaire!';
+          messageElement.classList.add('success');
+          messageElement.classList.remove('error');
+        } else {
+          const errorText = await response.text();
+          messageElement.textContent = errorText || 'Submission failed';
+          messageElement.classList.add('error');
+          messageElement.classList.remove('success');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        messageElement.textContent = 'An error occurred. Please try again.';
+        messageElement.classList.add('error');
+        messageElement.classList.remove('success');
+      }
+    });
+  </script>
+</body>
+</html>
