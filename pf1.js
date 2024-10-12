@@ -24,6 +24,9 @@ const contactSchema = new mongoose.Schema({
 });
 
 const Contact = mongoose.model('Contact', contactSchema);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'pf1.html'));
+});
 
 // Sample route to handle POST requests to /contacts
 app.post('/contacts', async (req, res) => {
