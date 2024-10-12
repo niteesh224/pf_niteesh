@@ -1,71 +1,58 @@
 const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
-// Initialize app
 const app = express();
+const port = process.env.PORT || 3000;
+
+// Middleware to parse JSON requests
 app.use(bodyParser.json());
-app.use(cors());
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// MongoDB connection URI
-const uri = "mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/"
-//const uri = "mongodb://127.0.0.1:27017/portfolio_db"; // Adjust this if using a remote MongoDB instance
+// MongoDB connection URI from environment variable
+const mongoUri = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/mydb'; // Local fallback
 
-// Connect to MongoDB using Mongoose
-mongoose.connect(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
-  .then(() => console.log('Connected to MongoDB via Mongoose'))
-  .catch((err) => console.error('Error connecting to MongoDB:', err));
+// Connect to MongoDB
+mongoose.connect(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('Connected to MongoDB'))
+    .catch(err => console.error('Could not connect to MongoDB...', err));
 
-// Define a schema for the contact form
+// Define your Mongoose schema and model here
 const contactSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-  },
-  message: {
-    type: String,
-    required: true,
-  },
-}, {
-  timestamps: true // Automatically adds `createdAt` and `updatedAt` fields
+    name: String,
+    email: String,
+    message: String
 });
 
-// Create a model based on the schema
 const Contact = mongoose.model('Contact', contactSchema);
 
-// Contact form submission route
-app.post('/contact', async (req, res) => {
-  const { name, email, message } = req.body;
+// Sample route to handle POST requests to /contacts
+app.post('/contacts', async (req, res) => {
+    const { name, email, message } = req.body;
 
-  if (!name || !email || !message) {
-    return res.status(400).send('Please fill out all required fields.');
-  }
-
-  try {
     // Create a new contact document
     const newContact = new Contact({ name, email, message });
 
-    // Save the document in the database
-    await newContact.save();
+    try {
+        // Save the contact to the database
+        await newContact.save();
+        res.status(201).send('Contact saved successfully');
+    } catch (error) {
+        res.status(500).send('Error saving contact: ' + error.message);
+    }
+});
 
-    res.status(200).send('Thank you for your message! Your data has been stored.');
-  } catch (error) {
-    console.error('Error saving contact form data:', error);
-    res.status(500).send('Error submitting your message. Please try again later.');
-  }
+// Example route to get all contacts
+app.get('/contacts', async (req, res) => {
+    try {
+        const contacts = await Contact.find();
+        res.json(contacts);
+    } catch (error) {
+        res.status(500).send('Error fetching contacts: ' + error.message);
+    }
 });
 
 // Start the server
-app.listen(8080, () => {
-  console.log('Server is running on http://localhost:8080');
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });
+
