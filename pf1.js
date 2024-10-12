@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, 'main')));
+app.use(express.static(path.join(__dirname, './')));
 
 // MongoDB connection URI from environment variable
 const mongoUri = process.env.MONGO_URI || "mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/"; // Local fallback for testing
