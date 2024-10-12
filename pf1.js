@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
 // Serve static files from the "public" directory
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, 'main')));
 
 // MongoDB connection URI from environment variable
 const mongoUri = process.env.MONGO_URI || "mongodb+srv://niteeshkumar224:MtHvyEQ9t8w4WBXhKTWC@cluster0.qdy7z.mongodb.net/"; // Local fallback for testing
@@ -31,7 +31,7 @@ const Contact = mongoose.model('Contact', contactSchema);
 
 // Serve pf1.html at the root route
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '/', 'pf1.html'));
+    res.sendFile(path.join(__dirname, 'main', 'pf1.html'));
 });
 
 // Route to handle POST requests to /contacts
